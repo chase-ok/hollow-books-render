@@ -30,11 +30,19 @@ parser.add_argument('-m', '--margin', type=float, action='store', default=0.1,
                     dest='margin', help='page margin in INCHES')
 parser.add_argument('-o', '--output', type=str, default='rect.pdf', 
                     dest='output', action='store', help='output pdf file')
+parser.add_argument('-s', '--shrink', type=float, action='store', default=None,
+                    dest='shrink', help='shrink rectangle (in INCHES)')
 
 args = parser.parse_args()
 for arg in ['width', 'height', 'radius', 'margin']:
     value = getattr(args, arg)
     if value: setattr(args, arg, value*inch)
+
+if args.shrink:
+    shrink = args.shrink*inch
+    args.margin += shrink
+    args.width -= 2*shrink
+    args.height -= 2*shrink
 
 rect(args.output, args.width, args.height, 
      radius=args.radius, margin=args.margin)

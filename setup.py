@@ -5,6 +5,6 @@ setup(console=['rect.py'],
       options={
           'py2exe': {
               'packages': ['reportlab'],
-              'bundle_files': 2
+              'bundle_files': 3
           }
       })
